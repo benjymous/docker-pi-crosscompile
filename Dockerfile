@@ -62,6 +62,6 @@ RUN chroot $SYSROOT $QEMU_PATH /bin/sh -c '\
 RUN chroot $SYSROOT $QEMU_PATH /bin/sh -c 'sudo apt-get update && sudo apt-get upgrade -y --force-yes'
 
 # Get build dependencies
-RUN chroot $SYSROOT $QEMU_PATH /bin/sh -c 'sudo apt-get install -y --force-yes -y curl git make clang wget rsync cmake'
+RUN chroot $SYSROOT $QEMU_PATH /bin/sh -c 'sudo apt-get install -y --force-yes -y curl git make clang wget rsync cmake libqt4-opengl-dev libsdl2-dev libglew-dev'
 
 CMD chroot $SYSROOT $QEMU_PATH /bin/bash
