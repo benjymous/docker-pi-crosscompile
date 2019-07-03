@@ -15,10 +15,7 @@ RUN apt-get update \
   make \
   runit \
   sudo \
-  xz-utils \
-  clang \
-  wget \
-  rsync
+  xz-utils 
 
 ENV HOST=arm-linux-gnueabihf \
   TOOLCHAIN=gcc-linaro-arm-linux-gnueabihf-raspbian-x64
@@ -37,12 +34,19 @@ ENV ARCH=arm \
 
 WORKDIR $SYSROOT
 
-RUN curl -Ls https://downloads.raspberrypi.org/raspbian_lite/root.tar.xz \
+// Use old version of raspbian, to keep dependencies down
+RUN curl -Ls https://downloads.raspberrypi.org/raspbian_lite/archive/2016-11-29-16:33/root.tar.xz \
   | tar -xJf -
+  
+#RUN curl -Ls https://downloads.raspberrypi.org/raspbian_lite/root.tar.xz \
+#  | tar -xJf -
 
 ADD https://github.com/resin-io-projects/armv7hf-debian-qemu/raw/master/bin/qemu-arm-static $SYSROOT/$QEMU_PATH
 
 RUN chmod +x $SYSROOT/$QEMU_PATH && mkdir -p $SYSROOT/build
+
+# Remove preload file, as it just causes warning spam
+RUN rm $SYSROOT/etc/ld.so.preload
 
 RUN chroot $SYSROOT $QEMU_PATH /bin/sh -c '\
   echo "deb http://archive.raspbian.org/raspbian stretch firmware" \
@@ -57,11 +61,12 @@ RUN chroot $SYSROOT $QEMU_PATH /bin/sh -c '\
   libc6-dev \
   symlinks \
   && symlinks -cors /'
-
+  
 # Update and Upgrade the Pi, otherwise the build may fail due to inconsistencies
 RUN chroot $SYSROOT $QEMU_PATH /bin/sh -c 'sudo apt-get update && sudo apt-get upgrade -y --force-yes'
 
 # Get build dependencies
-RUN chroot $SYSROOT $QEMU_PATH /bin/sh -c 'sudo apt-get install -y --force-yes -y curl git make clang wget rsync cmake libqt4-opengl-dev libsdl2-dev libglew-dev'
+# -libqt4-opengl-dev 
+RUN chroot $SYSROOT $QEMU_PATH /bin/sh -c 'sudo apt-get install -y --force-yes -y curl git make clang wget rsync cmake libsdl2-dev libglew-dev'
 
 CMD chroot $SYSROOT $QEMU_PATH /bin/bash
