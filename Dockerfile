@@ -34,8 +34,8 @@ ENV ARCH=arm \
 
 WORKDIR $SYSROOT
 
-# Use old version of raspbian, to keep dependencies down
-RUN curl -Ls https://downloads.raspberrypi.org/raspbian_lite/archive/2016-11-29-16:33/root.tar.xz \
+# Use full raspbian rather than lite
+RUN curl -Ls https://downloads.raspberrypi.org/raspbian/archive/2019-06-24-07:06/root.tar.xz \
   | tar -xJf -
   
 #RUN curl -Ls https://downloads.raspberrypi.org/raspbian_lite/root.tar.xz \
