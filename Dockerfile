@@ -1,6 +1,6 @@
 # based on https://github.com/davibe/docker-gstreamer-raspbian-build
 
-FROM debian:buster
+FROM debian:stretch
 
 RUN apt-get update \
   && DEBIAN_FRONTEND=noninteractive apt-get install -y apt-utils \
@@ -49,7 +49,7 @@ RUN chmod +x $SYSROOT/$QEMU_PATH && mkdir -p $SYSROOT/build
 RUN rm $SYSROOT/etc/ld.so.preload
 
 RUN chroot $SYSROOT $QEMU_PATH /bin/sh -c '\
-  echo "deb http://archive.raspbian.org/raspbian stretch firmware" \
+  echo "deb http://archive.raspbian.org/raspbian buster firmware" \
   >> /etc/apt/sources.list \
   && apt-get update \
   && sudo apt-mark hold \
