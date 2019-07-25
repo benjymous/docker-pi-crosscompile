@@ -48,19 +48,19 @@ RUN chmod +x $SYSROOT/$QEMU_PATH && mkdir -p $SYSROOT/build
 # Remove preload file, as it just causes warning spam
 RUN rm $SYSROOT/etc/ld.so.preload
 
-RUN chroot $SYSROOT $QEMU_PATH /bin/sh -c '\
-  echo "deb http://archive.raspbian.org/raspbian buster firmware" \
-  >> /etc/apt/sources.list \
-  && apt-get update \
-  && sudo apt-mark hold \
-  raspberrypi-bootloader raspberrypi-kernel raspberrypi-sys-mods raspi-config \
-  && DEBIAN_FRONTEND=noninteractive apt-get install -y apt-utils \
-  && DEBIAN_FRONTEND=noninteractive dpkg-reconfigure apt-utils \
-  && DEBIAN_FRONTEND=noninteractive apt-get upgrade -y \
-  && DEBIAN_FRONTEND=noninteractive apt-get install -y \
-  libc6-dev \
-  symlinks \
-  && symlinks -cors /'
+#RUN chroot $SYSROOT $QEMU_PATH /bin/sh -c '\
+#  echo "deb http://archive.raspbian.org/raspbian buster firmware" \
+#  >> /etc/apt/sources.list \
+#  && apt-get update \
+#  && sudo apt-mark hold \
+#  raspberrypi-bootloader raspberrypi-kernel raspberrypi-sys-mods raspi-config \
+#  && DEBIAN_FRONTEND=noninteractive apt-get install -y apt-utils \
+#  && DEBIAN_FRONTEND=noninteractive dpkg-reconfigure apt-utils \
+#  && DEBIAN_FRONTEND=noninteractive apt-get upgrade -y \
+#  && DEBIAN_FRONTEND=noninteractive apt-get install -y \
+#  libc6-dev \
+#  symlinks \
+#  && symlinks -cors /'
   
 # Update and Upgrade the Pi, otherwise the build may fail due to inconsistencies
 RUN chroot $SYSROOT $QEMU_PATH /bin/sh -c 'sudo apt-get update && sudo apt-get upgrade -y --force-yes'
