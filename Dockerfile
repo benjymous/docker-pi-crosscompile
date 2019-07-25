@@ -1,6 +1,6 @@
 # based on https://github.com/davibe/docker-gstreamer-raspbian-build
 
-FROM debian:stretch
+FROM debian:buster
 
 RUN apt-get update \
   && DEBIAN_FRONTEND=noninteractive apt-get install -y apt-utils \
@@ -35,7 +35,7 @@ ENV ARCH=arm \
 WORKDIR $SYSROOT
 
 # Use full raspbian rather than lite
-RUN curl -Ls https://downloads.raspberrypi.org/raspbian/archive/2019-06-24-07:06/root.tar.xz \
+RUN curl -Ls https://downloads.raspberrypi.org/raspbian/root.tar.xz \
   | tar -xJf -
   
 #RUN curl -Ls https://downloads.raspberrypi.org/raspbian_lite/root.tar.xz \

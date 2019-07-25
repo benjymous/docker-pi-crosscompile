@@ -1,3 +1,3 @@
-# docker-pi-raspbian-stretch-crosscompile
+# docker-pi-raspbian-crosscompile
 
-Raspbian Stretch based build environment
+Raspbian Buster based build environment
