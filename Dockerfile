@@ -35,7 +35,7 @@ ENV ARCH=arm \
 WORKDIR $SYSROOT
 
 # Use full raspbian rather than lite
-RUN curl -Ls https://downloads.raspberrypi.org/raspbian/root.tar.xz \
+RUN curl -Ls https://downloads.raspberrypi.org/raspbian/archive/2019-07-12-14:50/root.tar.xz \
   | tar -xJf -
   
 #RUN curl -Ls https://downloads.raspberrypi.org/raspbian_lite/root.tar.xz \
