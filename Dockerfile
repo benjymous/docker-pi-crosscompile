@@ -63,7 +63,7 @@ RUN rm $SYSROOT/etc/ld.so.preload
 #  && symlinks -cors /'
   
 # Update and Upgrade the Pi, otherwise the build may fail due to inconsistencies
-RUN chroot $SYSROOT $QEMU_PATH /bin/sh -c 'sudo apt-get update && sudo apt-get upgrade -y --force-yes'
+RUN chroot $SYSROOT $QEMU_PATH /bin/sh -c 'sudo apt-get --allow-releaseinfo-change update && sudo apt-get upgrade -y --force-yes'
 
 # Get build dependencies
 # -libqt4-opengl-dev 
